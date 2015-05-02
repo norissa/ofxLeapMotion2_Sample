@@ -26,4 +26,14 @@ public:
     
     vector <int> fingersFound;
     ofEasyCam cam;
+    
+    ofPoint hand[4];
+    ofLight light;
+    
+    ofTrueTypeFont font;
+    bool preHandNum;
+    bool startCount;
+    bool mode;
+    int timeStart;
+    int gravity;
 };

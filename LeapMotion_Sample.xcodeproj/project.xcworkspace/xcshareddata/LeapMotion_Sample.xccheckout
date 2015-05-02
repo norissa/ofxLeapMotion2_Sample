@@ -6,24 +6,40 @@
 	<false/>
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>93FC2D03-8537-4E6D-ACE8-FC1A568B3880</string>
+	<key>IDESourceControlProjectName</key>
+	<string>LeapMotion_Sample</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
+		<key>1B3D12125F19D6332B3F053DF6694C9DA2BB151B</key>
+		<string>github.com:Hiroki11x/ofxLeapMotion2_Sample.git</string>
 		<key>ED76853E2B35CA572D965A37CB2B34326D97D520</key>
 		<string>github.com:genekogan/ofxLeapMotion2.git</string>
 	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>LeapMotion_Sample.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
+		<key>1B3D12125F19D6332B3F053DF6694C9DA2BB151B</key>
+		<string>../..</string>
 		<key>ED76853E2B35CA572D965A37CB2B34326D97D520</key>
-		<string>ofxLeapMotion2/</string>
+		<string>../../../ofxLeapMotion2</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
-	<string>github.com:genekogan/ofxLeapMotion2.git</string>
+	<string>github.com:Hiroki11x/ofxLeapMotion2_Sample.git</string>
 	<key>IDESourceControlProjectVersion</key>
 	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>ED76853E2B35CA572D965A37CB2B34326D97D520</string>
+	<string>1B3D12125F19D6332B3F053DF6694C9DA2BB151B</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>1B3D12125F19D6332B3F053DF6694C9DA2BB151B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>LeapMotion_Sample</string>
+		</dict>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
