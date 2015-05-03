@@ -57,22 +57,23 @@ void ofApp::update(){
     leap.markFrameAsOld();
     
     
-    if(simpleHands.size()==2&&preHandNum){
+    if(simpleHands.size()==2&&preHandNum){//0or1→2本を認識したとき
         startCount=true;
     }else{
         startCount=false;
     }
     
-    if(simpleHands.size()!=2){
+    if(simpleHands.size()!=2){//手が2本でないときpreHandNumをtrueに
         preHandNum=true;
         mode=false;
     }else{
         preHandNum=false;
     }
     
-    if(startCount==true){
+    if(startCount==true){////0or1→2本を認識したときのスイッチ
         mode=true;
         timeStart=ofGetElapsedTimef();
+        drop=false;//丸が落ちたままの状態
     }
 }
 
@@ -128,21 +129,20 @@ void ofApp::draw(){
         }//手の関節を描画するためのfor文
     }//手の数だけfor文を回す
     
-    if(simpleHands.size()==2&&mode==true){
+    if(simpleHands.size()==2&&mode==true){//手を認識するまでの五秒間
         gravity=0;
         ofSetColor(20,50);
-        float rad = ofDist(hand[0].x,hand[1].x, hand[0].y,hand[1].y);
+        rad = ofDist(hand[0].x,hand[1].x, hand[0].y,hand[1].y);
         rad+=sqrt(pow( hand[1].z,2)+pow( hand[0].z,2));
         ofDrawSphere((hand[0].x+hand[1].x)/2, (hand[0].y+hand[1].y)/2, (hand[0].z+hand[1].z)/2,rad/2-20);
-    }else if(simpleHands.size()==2&&mode==false){
+        
+    }else if(drop==true){//落ちた状態
         gravity+=5;
-        if((hand[0].y+hand[1].y)/2+gravity>ofGetHeight()-400){
+        if(hand[3].y+gravity>ofGetHeight()-400){
             gravity-=5;
         }
         ofSetColor(20,50);
-        float rad = ofDist(hand[0].x,hand[1].x, hand[0].y,hand[1].y);
-        rad+=sqrt(pow( hand[1].z,2)+pow( hand[0].z,2));
-        ofDrawSphere((hand[0].x+hand[1].x)/2, (hand[0].y+hand[1].y)/2-gravity, (hand[0].z+hand[1].z)/2,rad/2-20);
+        ofDrawSphere(hand[3].x,hand[3].y-gravity,hand[3].z,rad2/2);
     }
     
     
@@ -151,10 +151,15 @@ void ofApp::draw(){
 //    light.enable();
     
     
-    if(mode==true){
-        float time = ofGetElapsedTimef()-timeStart;
+    if(mode==true){//落ちるまでの五秒間
+        float time = ofGetElapsedTimef()-timeStart;//残り時間をカウント
         if(time>=6){
             mode=false;
+            hand[3].x=(hand[0].x+hand[1].x)/2;
+            hand[3].y=(hand[0].y+hand[1].y)/2;
+            hand[3].z=(hand[0].z+hand[1].z)/2;
+            rad2=rad;
+            drop=true;
         }
         ofSetColor(0);
         font.drawString(ofToString((int)(6-time))+"",150,250);

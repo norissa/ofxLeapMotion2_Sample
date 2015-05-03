@@ -36,4 +36,8 @@ public:
     bool mode;
     int timeStart;
     int gravity;
+    
+    float rad,rad2;
+    
+    bool drop;
 };
