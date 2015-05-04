@@ -29,6 +29,7 @@ void ofApp::setup(){
     
     ofHideCursor();
     ofToggleFullscreen();
+    image.loadImage("img_11.png");
 }
 
 //--------------------------------------------------------------
@@ -136,25 +137,24 @@ void ofApp::draw(){
         rad+=sqrt(pow( hand[1].z,2)+pow( hand[0].z,2));
         ofDrawSphere((hand[0].x+hand[1].x)/2, (hand[0].y+hand[1].y)/2, (hand[0].z+hand[1].z)/2,rad/2-20);
         
-    }else if(drop==true){//落ちた状態
+    }else if(drop==true && hand[3].y+gravity >= ofGetHeight()-400){//落ちた状態
         gravity+=5;
-        if(hand[3].y+gravity>ofGetHeight()-400){
-            gravity-=5;
-        }
         ofSetColor(20,50);
         ofDrawSphere(hand[3].x,hand[3].y-gravity,hand[3].z,rad2/2);
+    }else if(drop==true && hand[3].y+gravity>ofGetHeight()-400){//下に到達した時
+            image.bind();
+            ofDrawSphere(hand[3].x,hand[3].y-gravity,hand[3].z,rad2/2);
+            image.unbind();
     }
-    
-    
-    
     cam.end();
 //    light.enable();
     
     
     if(mode==true){//落ちるまでの五秒間
         float time = ofGetElapsedTimef()-timeStart;//残り時間をカウント
-        if(time>=6){
-            mode=false;
+        if(time>=6){//五秒経過するとき
+            mode=false;//0or1→2本を認識したときのスイッチのmodeをoffに
+            //球の中心座標を保存
             hand[3].x=(hand[0].x+hand[1].x)/2;
             hand[3].y=(hand[0].y+hand[1].y)/2;
             hand[3].z=(hand[0].z+hand[1].z)/2;

@@ -39,5 +39,7 @@ public:
     
     float rad,rad2;
     
+    ofImage image;
+    
     bool drop;
 };
