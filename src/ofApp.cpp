@@ -19,7 +19,7 @@ void ofApp::setup(){
     ofSetLogLevel(OF_LOG_VERBOSE);
     mode=false;
     leap.open();
-    
+    ofEnableNormalizedTexCoords();
     cam.setOrientation(ofPoint(-20, 0, 0));
     
     glEnable(GL_DEPTH_TEST);
@@ -29,7 +29,7 @@ void ofApp::setup(){
     
     ofHideCursor();
     ofToggleFullscreen();
-    image.loadImage("img_11.png");
+    image.loadImage("apple.png");
 }
 
 //--------------------------------------------------------------
@@ -72,9 +72,9 @@ void ofApp::update(){
     }
     
     if(startCount==true){////0or1→2本を認識したときのスイッチ
-        mode=true;
+        mode=true;//手を認識してから5秒間かかるまでの状態
         timeStart=ofGetElapsedTimef();
-        drop=false;//丸が落ちたままの状態
+        drop=false;//丸が落ちたままの状態(丸が落ちたままのときクリアして新しい球を作る)
     }
 }
 
@@ -137,14 +137,16 @@ void ofApp::draw(){
         rad+=sqrt(pow( hand[1].z,2)+pow( hand[0].z,2));
         ofDrawSphere((hand[0].x+hand[1].x)/2, (hand[0].y+hand[1].y)/2, (hand[0].z+hand[1].z)/2,rad/2-20);
         
-    }else if(drop==true && hand[3].y+gravity >= ofGetHeight()-400){//落ちた状態
+    }
+    if(mode==false && hand[3].y+gravity <= ofGetHeight()-500){//落ちる状態
         gravity+=5;
         ofSetColor(20,50);
         ofDrawSphere(hand[3].x,hand[3].y-gravity,hand[3].z,rad2/2);
-    }else if(drop==true && hand[3].y+gravity>ofGetHeight()-400){//下に到達した時
-            image.bind();
-            ofDrawSphere(hand[3].x,hand[3].y-gravity,hand[3].z,rad2/2);
-            image.unbind();
+    }else if(drop==true && hand[3].y+gravity>ofGetHeight()-500){//下に到達した時
+        image.bind();//リンゴをbind()
+        ofSetColor(255);
+        ofDrawSphere(hand[3].x,hand[3].y-gravity,hand[3].z,rad2/2);
+        image.unbind();
     }
     cam.end();
 //    light.enable();
