@@ -29,7 +29,8 @@ void ofApp::setup(){
     
     ofHideCursor();
     ofToggleFullscreen();
-    image.loadImage("apple.png");
+    image[0].loadImage("apple.png");
+    image[1].loadImage("orange.png");
 }
 
 //--------------------------------------------------------------
@@ -143,10 +144,10 @@ void ofApp::draw(){
         ofSetColor(20,50);
         ofDrawSphere(hand[3].x,hand[3].y-gravity,hand[3].z,rad2/2);
     }else if(drop==true && hand[3].y+gravity>ofGetHeight()-500){//下に到達した時
-        image.bind();//リンゴをbind()
+        image[0].bind();//リンゴをbind()
         ofSetColor(255);
         ofDrawSphere(hand[3].x,hand[3].y-gravity,hand[3].z,rad2/2);
-        image.unbind();
+        image[0].unbind();
     }
     cam.end();
 //    light.enable();
@@ -154,17 +155,17 @@ void ofApp::draw(){
     
     if(mode==true){//落ちるまでの五秒間
         float time = ofGetElapsedTimef()-timeStart;//残り時間をカウント
-        if(time>=6){//五秒経過するとき
-            mode=false;//0or1→2本を認識したときのスイッチのmodeをoffに
-            //球の中心座標を保存
-            hand[3].x=(hand[0].x+hand[1].x)/2;
+        if(time>=6){//五秒経過するとき(その瞬間)
+            mode=false;//0or1→2本を認識したときのスイッチのmodeをoffに(ここのサブルーチンに来ないように)
+
+            hand[3].x=(hand[0].x+hand[1].x)/2;//球の中心座標を保存
             hand[3].y=(hand[0].y+hand[1].y)/2;
             hand[3].z=(hand[0].z+hand[1].z)/2;
-            rad2=rad;
-            drop=true;
+            rad2=rad;//半径を固定してコピー
+            drop=true;//落ちている状態かどうかのboolをtrueにセット
         }
         ofSetColor(0);
-        font.drawString(ofToString((int)(6-time))+"",150,250);
+        font.drawString(ofToString((int)(6-time))+"",150,250);//秒数表示
     }
 }
 

@@ -39,7 +39,7 @@ public:
     
     float rad,rad2;
     
-    ofImage image;
+    ofImage image[10];
     
     bool drop;
 };
